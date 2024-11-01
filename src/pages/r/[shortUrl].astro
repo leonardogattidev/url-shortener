@@ -1,21 +1,21 @@
 ---
 import { decode } from "../../lib/base62";
-import { dbConnect } from "../../db";
 import getUrlById from "../../db/repository/getUrlById";
 import { ApiError } from "../../lib/ApiError";
+import type { Env } from "../../env";
 
 export const prerender = false;
 
 const { shortUrl } = Astro.params;
 
-if (shortUrl == undefined) return Astro.rewrite("/404");
+if (shortUrl == undefined) return Astro.rewrite("/400");
 
 const id = decode(shortUrl);
 
-const db = dbConnect((Astro.locals as any).runtime.env);
+const env = (Astro.locals as any).runtime.env as Env;
+const urls = env.urls;
 
-const url = await getUrlById(db, id);
-
+const url = await getUrlById(urls, String(id));
 if (url instanceof ApiError) return Astro.rewrite(`/${url.code}`);
 
 return Astro.redirect(url, 302);

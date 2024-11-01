@@ -1,27 +1,26 @@
-import type { DB } from "..";
+import type { KVNamespace } from "@cloudflare/workers-types";
 import { ApiError } from "../../lib/ApiError";
-import { urls } from "../schema";
 
-export default async function addUrl(db: DB, url: string) {
-  const id = await db
-    .insert(urls)
-    .values({ url })
-    .onConflictDoUpdate({ target: urls.url, set: { url: url } })
-    .returning({ id: urls.id })
-    .then((v) => v[0].id)
-    .catch(async (error) => {
-      if (!(error instanceof Error)) return ApiError.internal();
+export default async function addUrl(
+  urls: KVNamespace,
+  url: string,
+): Promise<string | ApiError> {
+  try {
+    const urlKey = `l:${url}`;
+    const existant = await urls.get(urlKey);
 
-      // SERVER ERROR HANDLING
-      console.error(error);
-      if (error.message.includes("401"))
-        return new ApiError(
-          503,
-          "Service Unavailable. Database interaction failed",
-        );
-      return ApiError.internal();
-    });
-  if (id instanceof ApiError) return id;
+    if (existant) return existant;
 
-  return id;
+    const id = (await urls.get("next_id")) || "0";
+    await urls.put(urlKey, id);
+    const idKey = `s:${id}`;
+    await urls.put(idKey, url);
+
+    await urls.put("next_id", String(parseInt(id) + 1));
+
+    return id;
+  } catch (error) {
+    console.error(error);
+    return ApiError.internal();
+  }
 }

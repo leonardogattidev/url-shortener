@@ -1,2 +1,6 @@
 name = "short"
 pages_build_output_dir = "./dist/"
+
+[[kv_namespaces]]
+binding = "urls"
+id = "18e7855970904d39be2bca195d2a9b39"

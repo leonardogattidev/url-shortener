@@ -1,29 +1,12 @@
-import { eq } from "drizzle-orm";
-import { urls } from "../schema";
-import type { DB } from "..";
 import { ApiError } from "../../lib/ApiError";
+import type { KVNamespace } from "@cloudflare/workers-types";
 
 export default async function getUrlById(
-  db: DB,
-  id: number,
+  urls: KVNamespace,
+  id: string,
 ): Promise<string | ApiError> {
-  const result = await db.query.urls
-    .findFirst({ columns: { url: true }, where: eq(urls.id, id) })
-    .catch((error) => {
-      if (!(error instanceof Error)) return ApiError.internal();
+  const url = await urls.get(`s:${id}`);
 
-      if (error.message.includes("401"))
-        return new ApiError(
-          503,
-          "Service Unavailable. Database interaction failed",
-        );
-
-      console.error(error);
-      return ApiError.internal();
-    });
-  if (result instanceof ApiError) return result;
-
-  if (!result) return new ApiError(404, "URL not found");
-
-  return result.url;
+  if (!url) return new ApiError(404, "URL not found");
+  return url;
 }

@@ -1,22 +1,22 @@
 import type { APIRoute } from "astro";
-import { dbConnect } from "../../db";
 import addUrl from "../../db/repository/addUrl";
 import { encode } from "../../lib/base62";
 import { ApiError } from "../../lib/ApiError";
+import type { Env } from "../../env";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals as any).runtime.env;
+  const env = (locals as any).runtime.env as Env;
 
   const url = await parseURL(request);
   if (url instanceof ApiError) return url.response();
 
-  const db = dbConnect(env);
-  const id = await addUrl(db, url);
+  const urls = env.urls;
+  const id = await addUrl(urls, url);
   if (id instanceof ApiError) return id.response();
 
-  const encodedId = encode(id);
+  const encodedId = encode(parseInt(id));
   const shortUrl = new URL(request.url);
   shortUrl.pathname = `/r/${encodedId}`;
 

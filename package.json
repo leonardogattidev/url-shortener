@@ -6,11 +6,12 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
     "generate": "drizzle-kit generate",
-    "deploy": "astro check && astro build && wrangler pages deploy"
+    "preview": "astro build && wrangler pages dev",
+    "deploy": "astro check && astro build && wrangler pages deploy",
+    "tail-logs": "wrangler pages deployment tail --project-name short --environment"
   },
   "dependencies": {
     "@astrojs/check": "0.9.3",
@@ -30,6 +31,6 @@
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "vitest": "^2.0.5",
-    "wrangler": "^3.72.0"
+    "wrangler": "^3.84.1"
   }
 }
