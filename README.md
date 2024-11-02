@@ -3,18 +3,15 @@
 ## Tools
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Astro](https://astro.build/)
-  - [Hybrid SSR](https://docs.astro.build/en/basics/rendering-modes/#on-demand-rendered) using it's [Cloudflare integration]
-  - [Interactive islands architecture](https://docs.astro.build/en/concepts/islands/)
+- [Astro](https://astro.build/) - [Hybrid SSR](https://docs.astro.build/en/basics/rendering-modes/#on-demand-rendered) using its [Cloudflare integration](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
 - [Solid](https://www.solidjs.com/) - Simpler, lightweight and performant interactive components
 - [TailwindCSS](https://tailwindcss.com/) - CSS framework
-- [Bun](https://bun.sh/) - For quicker testing (`bun test`) and development package management
-- ~~ [Turso](https://turso.tech/) - Edge/distributed/replicated SQLite databases. ~~ (Migrated to Cloudflare WorkerKV)
+- ~~[Turso](https://turso.tech/) - Edge/distributed/replicated SQLite databases.~~ (Migrated to Cloudflare WorkerKV)
 - [DrizzleORM](https://orm.drizzle.team/) - Simple, lightweight, performant and Edge-compatible ORM
 - [Cloudflare](https://www.cloudflare.com/developer-platform/products/) - For deployment
-  - [Pages](https://pages.cloudflare.com/) - CDN served static assets (Frontend)
-  - [Workers](https://workers.cloudflare.com/) - Serverless edge functions (Backend)
-  - [KV](https://www.cloudflare.com/developer-platform/products/workers-kv/) - Serverless, edge key-value store.
+  - [Pages](https://pages.cloudflare.com/) - CDN served static assets
+  - [Workers](https://workers.cloudflare.com/) - Edge, serverless functions
+  - [Workers KV](https://www.cloudflare.com/developer-platform/products/workers-kv/) - Edge, serverless key-value store.
 
 ## To do / Ideas
 
