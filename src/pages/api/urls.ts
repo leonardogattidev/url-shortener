@@ -23,6 +23,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   return Response.json({ shortUrl });
 };
 
+// TODO: Consider moving this to /lib
 async function parseURL(request: Request): Promise<string | ApiError> {
   try {
     const contentType = request.headers.get("content-type");
