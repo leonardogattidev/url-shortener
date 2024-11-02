@@ -6,8 +6,6 @@
 - [Astro](https://astro.build/) - [Hybrid SSR](https://docs.astro.build/en/basics/rendering-modes/#on-demand-rendered) using its [Cloudflare integration](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
 - [Solid](https://www.solidjs.com/) - Simpler, lightweight and performant interactive components
 - [TailwindCSS](https://tailwindcss.com/) - CSS framework
-- ~~[Turso](https://turso.tech/) - Edge/distributed/replicated SQLite databases.~~ (Migrated to Cloudflare WorkerKV)
-- [DrizzleORM](https://orm.drizzle.team/) - Simple, lightweight, performant and Edge-compatible ORM
 - [Cloudflare](https://www.cloudflare.com/developer-platform/products/) - For deployment
   - [Pages](https://pages.cloudflare.com/) - CDN served static assets
   - [Workers](https://workers.cloudflare.com/) - Edge, serverless functions
@@ -15,22 +13,6 @@
 
 ## To do / Ideas
 
-- Add documentation
-- Bugs/Features
-  - URL click counter
-  - URL tracking panel
-    - a URL table with the deduplicated, actual links
-    - another table for the URLs a user tracks
-  - [x] Use `OR IGNORE` with `RETURNING` when querying for URL (making it a single query)
-  - Data fetching
-    - Feedback
-      - [x] Error
-      - [x] Loading
-      - [x] Success
-      - ~~Use toasts for feedback message~~
-    - [x] Data race (when submitting many different URLs simultaneously)
-      - [x] Use solid's `createResource` primitive
-      - ~~TanStack Query~~
 - Workflow
   - CI/CD ([GitHub Actions](https://github.com/features/actions))
   - UI Component Testing ([Storybook](https://storybook.js.org/))
@@ -39,10 +21,5 @@
   - [x] `base62` testing
 - Performance
   - Benchmark Go for Workers/Functions (WASM)
-  - [x] Consider Cloudflare D1 instead of Turso (discarded: worse geographical availability)
-- Base requirements
-  - Short URL
-    - [x] Creation endpoint
-    - [x] Creation page
-    - [x] Redirection endpoint
+  - [x] Migrate to WorkersKV (Removed Turso and DrizzleORM code and dependencies)
 - Check other URL Shortener services for ideas
